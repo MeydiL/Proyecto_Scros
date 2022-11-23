@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -14,9 +15,13 @@ import android.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.navigationrail.NavigationRailView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
     private DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
+
+        //Inicializar los servicios de firebase
+        firebaseAuth= FirebaseAuth.getInstance();
+        user= firebaseAuth.getCurrentUser();// obtener el usuario actual
+
     }
 
     @Override
@@ -60,7 +70,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CuentaFragment()).commit();
                 break;
             case R.id.nav_logout:
-                Toast.makeText(this, "Deslogueado!", Toast.LENGTH_SHORT).show();
+                firebaseAuth.signOut();
+                //Abre la actividad de login
+                startActivity(new Intent(MainActivity.this, Login.class));
+                Toast.makeText(this, "Cerraste sesión exitosamente!", Toast.LENGTH_SHORT).show();
                 break;
         }
 
