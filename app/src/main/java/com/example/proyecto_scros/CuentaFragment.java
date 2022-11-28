@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +28,7 @@ public class CuentaFragment extends Fragment {
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     DatabaseReference Usuarios;
+
     TextView perfilNombre,perfilApellidoP,perfilApellidoM, perfilUsuario, perfilContra;
     TextView tituloCorreo, tituloUsuario;
     String usuario="",nombre="",apePat="",apeMat="",correo="", contraseña="";
@@ -45,25 +47,25 @@ public class CuentaFragment extends Fragment {
         tituloCorreo=v.findViewById(R.id.tituloCorreo);
         tituloUsuario=v.findViewById(R.id.tituloUsuario);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-        Usuarios= FirebaseDatabase.getInstance().getReference("Usuarios");
+        firebaseAuth = FirebaseAuth.getInstance();                                  //instanciamos de la cuenta de autenticacion
+        user = firebaseAuth.getCurrentUser();                                       //obtener el usuario actual
+        Usuarios= FirebaseDatabase.getInstance().getReference("Usuarios");      //Obtenemos referencia de los datos de usuarios
         cargaDatos();
 
         return v;
     }
 
     private void cargaDatos(){
-        Usuarios.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+        Usuarios.child(user.getUid()).addValueEventListener(new ValueEventListener() {         //Del los datos almacenados en Usuario buscara la uid del usuario actual para obtener sus datos
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {                         //Funcion datasnapshop obtienes los hijo
 
                 //si el usuario existe
-                if(snapshot.exists()){
+                if(snapshot.exists()){                                                          //SI USAURIO EXISTE EN LA DB
                     //obtener los datos
-                    usuario= snapshot.child("usuario").getValue().toString();
-                    nombre=snapshot.child("nombre").getValue().toString();
-                    apePat=snapshot.child("apellidoPat").getValue().toString();
+                    usuario= snapshot.child("usuario").getValue().toString();                   // Le asignamos a la variable string el valor del atributo usuario
+                    nombre=snapshot.child("nombre").getValue().toString();                      //getvalue().tostring() funciona para
+                    apePat=snapshot.child("apellidoPat").getValue().toString();                 //convertir el valor de snapshop en string
                     apeMat=snapshot.child("apellidoMat").getValue().toString();
                     correo=snapshot.child("correo").getValue().toString();
                     contraseña=snapshot.child("contraseña").getValue().toString();
@@ -85,4 +87,6 @@ public class CuentaFragment extends Fragment {
             }
         });
     }
+
+
 }

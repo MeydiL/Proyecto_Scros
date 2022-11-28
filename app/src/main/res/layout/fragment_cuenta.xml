@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/perfilNombre"
-                android:text="nombre"
+                android:text="----"
                 android:layout_weight="1"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/grey"
@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/perfilApellidoP"
-                android:text="apellidopat"
+                android:text="----"
                 android:layout_weight="1"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/grey"
@@ -144,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/perfilApellidoM"
-                android:text="apellidomat"
+                android:text="----"
                 android:layout_weight="1"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/grey"
@@ -180,7 +180,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/perfilUsuario"
-                android:text="usuario"
+                android:text="----"
                 android:layout_weight="1"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/grey"
@@ -216,7 +216,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/perfilContra"
-                android:text="contraseña"
+                android:text="----"
                 android:layout_weight="1"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/grey"
@@ -225,19 +225,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btneditar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/contenidoUsuario"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="40dp"
-        android:text="Editar"
-        android:backgroundTint="#FF9800"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
 
 
 </RelativeLayout>

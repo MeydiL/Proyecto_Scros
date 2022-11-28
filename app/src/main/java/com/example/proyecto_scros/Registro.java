@@ -1,6 +1,7 @@
 package com.example.proyecto_scros;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -134,6 +135,8 @@ public class Registro extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         progressDialog.dismiss();
+                        //Abrimos la pantalla de menu principal
+                        startActivity(new Intent(Registro.this, Login.class));
                         Toast.makeText(Registro.this, "Usuario registrado correctamente.", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
