@@ -4,4 +4,54 @@
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- TODO: Proyectos Creados-->
+    <string name="txt_NombreProyectoCreado">Titulo del Proyecto</string>
+    <string name="txt_DescripcionroyectoCreado">Descripción del Proyecto</string>
+
+
+
+
+
+    <!-- TODO: Mis Proyectos -->
+    <string name="hint_Buscar">Buscar</string>
+
+    <!-- TODO: Crear Proyectos -->
+    <string name="Uid_Usuario">Uid del usuario</string>
+    <string name="Correo_usuario">Correo de usuario</string>
+    <string name="Fecha_hora_actual">Fecha y hora actual</string>
+    <string name="Titulo">Titulo</string>
+    <string name="Descripcion">Descripcion</string>
+    <string name="Btn_Calendario">Calendario</string>
+    <string name="Btn_Crear_Proyecto">Crear proyecto</string>
+    <string name="Fecha">00/00/0000</string>
+    <string name="Estado">No finalizado</string>
+
+    <!-- TODO: Item Proyecto -->
+    <string name="Id_proyecto_Item">Id proyecto</string>
+    <string name="Uid_Usuario_Item">Uid del usuario</string>
+    <string name="Correo_usuario_Item">Correo del usuario</string>
+    <string name="Fecha_hora_registro_Item">Fecha y hora registro</string>
+    <string name="Titulo_Item">Titulo</string>
+    <string name="Descripcion_Item">Descripcion</string>
+    <string name="Fecha_Item">00/00/0000</string>
+    <string name="Estado_Item">No finalizado</string>
+
+
+
+
+
+
+
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+
 </resources>
