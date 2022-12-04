@@ -1,5 +1,8 @@
 package com.example.proyecto_scros;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -26,9 +29,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class ShareFragment extends Fragment {
+public class MisProyectosFragment extends Fragment {
 
     RecyclerView recyclerviewProyectos;
     FirebaseDatabase firebaseDatabase;
@@ -40,10 +44,13 @@ public class ShareFragment extends Fragment {
 
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
+
     DatabaseReference Usuarios;
 
-
     FloatingActionButton fab;
+
+    Dialog dialog;
+
     String uid_usuario, correo;
 
     Button btn_crear_proyecto;
@@ -65,7 +72,11 @@ public class ShareFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();                                  //instanciamos de la cuenta de autenticacion
         user = firebaseAuth.getCurrentUser();
+
         Usuarios= FirebaseDatabase.getInstance().getReference("Usuarios");
+
+        dialog = new Dialog(getContext());
+
         btn_crear_proyecto = v.findViewById(R.id.Btn_Crear_Proyecto);
         IniciarVariables();
         cargaDatos();
@@ -115,7 +126,9 @@ public class ShareFragment extends Fragment {
     }
 
     private void ListarProyectosUsuarios(){
-        options = new FirebaseRecyclerOptions.Builder<Proyecto>().setQuery(BASE_DE_DATOS, Proyecto.class).build();
+        Query query = BASE_DE_DATOS.orderByChild("uid_usuario").equalTo(user.getUid());
+                                        //aparer todos BASE_DE_DATOS o solo los del usuario query
+        options = new FirebaseRecyclerOptions.Builder<Proyecto>().setQuery(query, Proyecto.class).build();
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Proyecto, ViewHolder_Proyecto>(options) {
             @Override
             protected void onBindViewHolder(@NonNull ViewHolder_Proyecto viewHolder_proyecto, int position, @NonNull Proyecto proyecto) {
@@ -144,7 +157,34 @@ public class ShareFragment extends Fragment {
 
                     @Override
                     public void onItemLongClick(View view, int position) {
-                        Toast.makeText(getActivity(), "on item long click", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "on item long click", Toast.LENGTH_SHORT).show();
+                        String id_proeycto = getItem(position).getId_proyecto();
+
+                        //declarar vistar
+                        Button CD_Eliminar, CD_Actualizar;
+
+                        dialog.setContentView(R.layout.dialogo_opciones);
+                        CD_Eliminar = dialog.findViewById(R.id.CD_Eliminar);
+                        CD_Actualizar = dialog.findViewById(R.id.CD_Actualizar);
+
+                        CD_Eliminar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                EliminarProyecto(id_proeycto);
+                                dialog.dismiss();
+                                //Toast.makeText(getContext(), "Eliminar proyecto", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        CD_Actualizar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.dismiss();
+                                Toast.makeText(getContext(), "Actualizar proyecto", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        dialog.show();
                     }
                 });
                 return viewHolder_proyecto;
@@ -152,11 +192,50 @@ public class ShareFragment extends Fragment {
         };
 
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        linearLayoutManager.setReverseLayout(true);//que se enliste desde el ultimo al primero
+        linearLayoutManager.setReverseLayout(true);
+        // setReverseLayout() - TRUE - que se enliste desde el ultimo al primero/FALSE del primero al ultimo
         linearLayoutManager.setStackFromEnd(true);
+        //true- se desp
 
         recyclerviewProyectos.setLayoutManager(linearLayoutManager);
         recyclerviewProyectos.setAdapter(firebaseRecyclerAdapter);
+    }
+
+    private void EliminarProyecto(String id_proeycto) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Eliminar proyecto");
+        builder.setMessage("¿Desea eliminar este proyecto de la lista?");
+        builder.setPositiveButton("Si, seguro.", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //ELIMINAR ONOTA DB
+                Query query = BASE_DE_DATOS.orderByChild("id_proyecto").equalTo(id_proeycto);
+
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                       //lo usamos para recorrer en la bd todas las notas creadas por el user
+                        for(DataSnapshot ds : snapshot.getChildren()){
+                            ds.getRef().removeValue();
+                        }
+                        Toast.makeText(getContext(), "Proyecto eliminado.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getContext(), "No se ha eliminado el proyecto.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.create().show();
     }
 
     @Override

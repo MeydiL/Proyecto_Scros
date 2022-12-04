@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_gravity="center">
+
+    <TextView
+        android:text="@string/Elige_una_opcion_txt"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/CD_Eliminar"
+        android:text="@string/CD_Eliminar"
+        app:icon="@drawable/cd_delete"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/CD_Actualizar"
+        android:text="@string/CD_Actualizar"
+        app:icon="@drawable/cd_actualizar"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
