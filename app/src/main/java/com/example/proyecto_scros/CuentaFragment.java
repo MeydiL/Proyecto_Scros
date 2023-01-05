@@ -59,7 +59,6 @@ public class CuentaFragment extends Fragment {
         Usuarios.child(user.getUid()).addValueEventListener(new ValueEventListener() {         //Del los datos almacenados en Usuario buscara la uid del usuario actual para obtener sus datos
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {                         //Funcion datasnapshop obtienes los hijo
-
                 //si el usuario existe
                 if(snapshot.exists()){                                                          //SI USAURIO EXISTE EN LA DB
                     //obtener los datos
@@ -69,7 +68,6 @@ public class CuentaFragment extends Fragment {
                     apeMat=snapshot.child("apellidoMat").getValue().toString();
                     correo=snapshot.child("correo").getValue().toString();
                     contraseña=snapshot.child("contraseña").getValue().toString();
-
                     //enviar los daos a sus respectivos textView
                     perfilNombre.setText(nombre);
                     perfilApellidoP.setText(apePat);
@@ -80,10 +78,8 @@ public class CuentaFragment extends Fragment {
                     tituloUsuario.setText(usuario);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

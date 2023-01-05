@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Usuarios.child(user.getUid()).addValueEventListener(new ValueEventListener() {         //Del los datos almacenados en Usuario buscara la uid del usuario actual para obtener sus datos
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {                         //Funcion datasnapshop obtienes los hijo
-
                 //si el usuario existe
                 if(snapshot.exists()){                                                          //SI USAURIO EXISTE EN LA DB
                     //obtener los datos
@@ -121,10 +120,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     //enviar los daos a sus respectivos textView
                     headerUsuario.setText(usuario);
                     headerCorreo.setText(correo);
-
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

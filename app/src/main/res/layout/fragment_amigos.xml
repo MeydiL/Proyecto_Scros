@@ -4,15 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:showIn="@layout/fragment_amigos"
     tools:context=".AmigosFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/txtAmigos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Amigos"
+        android:textSize="24dp"
+        android:textAlignment="center"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAmigo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/txtAmigos"
+        tools:listitem="@layout/item_amigos"
+
+        />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Amigos Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
-        android:textColor="@color/lavender"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:src="@android:drawable/ic_input_add"
+        android:tint="@android:color/white"/>
 
 </RelativeLayout>
