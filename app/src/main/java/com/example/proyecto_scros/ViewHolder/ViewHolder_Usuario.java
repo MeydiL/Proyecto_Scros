@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyecto_scros.R;
@@ -14,7 +15,6 @@ public class ViewHolder_Usuario extends RecyclerView.ViewHolder {
 
     public Button btnAgregar;
     View mView;
-    //Button btnAgregar;
 
     private ViewHolder_Usuario.ClickListener mClickListener;
 

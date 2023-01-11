@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.proyecto_scros.AgregarAmigo.Agregar_Amigo;
@@ -48,7 +49,7 @@ public class AmigosFragment extends Fragment {
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
 
-    String uid;
+    TextView agregarAmigos;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +58,7 @@ public class AmigosFragment extends Fragment {
         View v= inflater.inflate(R.layout.fragment_amigos, container, false);
 
         fab = v.findViewById(R.id.btnFab);
+        agregarAmigos= v.findViewById(R.id.txtAgregaramigos);
 
         //RecyclerView Agregar amigo
         rvAmigo= v.findViewById(R.id.rvAmigo);
@@ -99,6 +101,8 @@ public class AmigosFragment extends Fragment {
                         amigo.getApeMat_amigo()
                 );
 
+                mostrarNoHayAgregados();
+                
             }
 
             @NonNull
@@ -147,14 +151,6 @@ public class AmigosFragment extends Fragment {
         rvAmigo.setAdapter(firebaseRecyclerAdapter);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if(firebaseRecyclerAdapter!= null){
-            firebaseRecyclerAdapter.startListening();
-        }
-    }
-
     public void eliminarAmigo(String uid_amigo){
         Query query = amigos.orderByChild("uid_amigo").equalTo(uid_amigo);
 
@@ -173,5 +169,33 @@ public class AmigosFragment extends Fragment {
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void mostrarNoHayAgregados(){
+        Query query = amigos.orderByChild("uid_usuario").equalTo(user.getUid()).limitToFirst(1); //Esta consulta tiene el limite que si encuentra solo un resultado se detiene
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){                                                            //Si el resulado de la consulta existe, o sea es verdadero
+                    agregarAmigos.setVisibility(View.GONE);
+
+                }else{
+                    agregarAmigos.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(firebaseRecyclerAdapter!= null){
+            firebaseRecyclerAdapter.startListening();
+        }
     }
 }
