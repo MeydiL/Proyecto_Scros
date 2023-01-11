@@ -1,64 +1,20 @@
-package com.example.proyecto_scros.AgregarAmigo;
+package com.example.proyecto_scros.Objetos;
 
 public class Amigo {
-    String uid, usuario, correo,nombre, apellidoPat, apellidoMat; //usuarios
 
     String  uid_amigo, usuario_amigo, correo_amigo, nombre_amigo, apePat_amigo, apeMat_amigo; //amigo
 
     public Amigo() {
     }
 
-
-    /* --DATOS DE USUARIOS DISPONIBLES EN LA BD*/
-    public String getUsuario() {
-        return usuario;
+    public Amigo(String uid_amigo, String usuario_amigo, String correo_amigo, String nombre_amigo, String apePat_amigo, String apeMat_amigo) {
+        this.uid_amigo = uid_amigo;
+        this.usuario_amigo = usuario_amigo;
+        this.correo_amigo = correo_amigo;
+        this.nombre_amigo = nombre_amigo;
+        this.apePat_amigo = apePat_amigo;
+        this.apeMat_amigo = apeMat_amigo;
     }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellidoPat() {
-        return apellidoPat;
-    }
-
-    public void setApellidoPat(String apellidoPat) {
-        this.apellidoPat = apellidoPat;
-    }
-
-    public String getApellidoMat() {
-        return apellidoMat;
-    }
-
-    public void setApellidoMat(String apellidoMat) {
-        this.apellidoMat = apellidoMat;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    /* ------------------DATOS DE AMIGOS AGREDADOS------------*/
 
     public String getUid_amigo() {
         return uid_amigo;

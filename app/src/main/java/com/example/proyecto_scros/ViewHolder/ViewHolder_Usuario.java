@@ -1,4 +1,4 @@
-package com.example.proyecto_scros.AgregarAmigo;
+package com.example.proyecto_scros.ViewHolder;
 
 import android.content.Context;
 import android.view.View;
@@ -6,30 +6,29 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyecto_scros.R;
-import com.example.proyecto_scros.ViewHolder.ViewHolder_Proyecto;
 
-public class ViewHolder_Amigos extends RecyclerView.ViewHolder {
+public class ViewHolder_Usuario extends RecyclerView.ViewHolder {
 
-
+    public Button btnAgregar;
     View mView;
-    Button btnAgregar;
 
-    private ViewHolder_Amigos.ClickListener mClickListener;
+    private ViewHolder_Usuario.ClickListener mClickListener;
 
     public interface ClickListener{
         void onItemClick(View view, int position);
         void onItemLongClick(View view, int position);
     }
 
-    public void setOnClickListener(ViewHolder_Amigos.ClickListener clickListener){
+    public void setOnClickListener(ViewHolder_Usuario.ClickListener clickListener){
 
         mClickListener = clickListener;
     }
 
-    public ViewHolder_Amigos(@NonNull View itemView) { //Constructor
+    public ViewHolder_Usuario(@NonNull View itemView) { //Constructor
         super(itemView);
         mView = itemView;
         btnAgregar= itemView.findViewById(R.id.btnAgregarAmigo);
@@ -50,8 +49,7 @@ public class ViewHolder_Amigos extends RecyclerView.ViewHolder {
         });
     }
 
-
-    public void setearDatos(Context context,String usuario, String correo){
+    public void setearDatosUsuario(Context context, String usuario, String correo){
 
         //Declarar vistas
         TextView usuarioAmigo, correoAmigo;
@@ -63,22 +61,5 @@ public class ViewHolder_Amigos extends RecyclerView.ViewHolder {
         //seteamos en el item
         usuarioAmigo.setText(usuario);
         correoAmigo.setText(correo);
-    }
-
-    public void setearAmigo(Context context, String usuario, String correo, String nombre, String apePat, String apeMat){
-
-        TextView usuarioAmigo, correoAmigo, nombreAmigo, apePatAmigo, apeMatAmigo;
-
-        usuarioAmigo =mView.findViewById(R.id.tvUsuario);
-        correoAmigo =mView.findViewById(R.id.tvCorreo);
-        nombreAmigo =mView.findViewById(R.id.tvNombre);
-        apePatAmigo =mView.findViewById(R.id.tvApePat);
-        apeMatAmigo =mView.findViewById(R.id.tvApeMat);
-
-        usuarioAmigo.setText(usuario);
-        correoAmigo.setText(correo);
-        nombreAmigo.setText(nombre);
-        apePatAmigo.setText(apePat);
-        apeMatAmigo.setText(apeMat);
     }
 }

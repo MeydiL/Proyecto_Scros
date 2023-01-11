@@ -13,19 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.proyecto_scros.AgregarAmigo.Agregar_Amigo;
-import com.example.proyecto_scros.AgregarAmigo.Amigo;
-import com.example.proyecto_scros.AgregarAmigo.ViewHolder_Amigos;
-import com.example.proyecto_scros.AgregarProyecto.Agregar_Proyecto;
+import com.example.proyecto_scros.Objetos.Amigo;
+import com.example.proyecto_scros.ViewHolder.ViewHolder_Amigos;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -43,7 +46,10 @@ public class AmigosFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference amigos;
 
-    String uid;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+
+    TextView agregarAmigos;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +58,7 @@ public class AmigosFragment extends Fragment {
         View v= inflater.inflate(R.layout.fragment_amigos, container, false);
 
         fab = v.findViewById(R.id.btnFab);
+        agregarAmigos= v.findViewById(R.id.txtAgregaramigos);
 
         //RecyclerView Agregar amigo
         rvAmigo= v.findViewById(R.id.rvAmigo);
@@ -60,6 +67,9 @@ public class AmigosFragment extends Fragment {
         //Inicializar usuarios (amigos)
         firebaseDatabase = FirebaseDatabase.getInstance();
         amigos = firebaseDatabase.getReference("Amigos");
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +87,8 @@ public class AmigosFragment extends Fragment {
     }
 
     private void listarAmigos(){
-        options = new FirebaseRecyclerOptions.Builder<Amigo>().setQuery(amigos, Amigo.class).build();
+        Query query = amigos.orderByChild("uid_usuario").equalTo(user.getUid());
+        options = new FirebaseRecyclerOptions.Builder<Amigo>().setQuery(query, Amigo.class).build();
         firebaseRecyclerAdapter= new FirebaseRecyclerAdapter<Amigo, ViewHolder_Amigos>(options) {
             @Override
             protected void onBindViewHolder(@NonNull ViewHolder_Amigos viewHolder_amigos, int position, @NonNull Amigo amigo) {
@@ -90,8 +101,8 @@ public class AmigosFragment extends Fragment {
                         amigo.getApeMat_amigo()
                 );
 
-                uid= amigo.getUid_amigo();
-
+                mostrarNoHayAgregados();
+                
             }
 
             @NonNull
@@ -107,6 +118,7 @@ public class AmigosFragment extends Fragment {
 
                     @Override
                     public void onItemLongClick(View view, int position) {
+                        String uid = getItem(position).getUid_amigo();
                         final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
 
                         dialog.setMessage("¿Desea eliminar este amigo?");
@@ -114,7 +126,7 @@ public class AmigosFragment extends Fragment {
                         dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                eliminarAmigo();
+                                eliminarAmigo(uid);
                                 Toast.makeText(getActivity(), "Amigo borrado", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -139,27 +151,36 @@ public class AmigosFragment extends Fragment {
         rvAmigo.setAdapter(firebaseRecyclerAdapter);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if(firebaseRecyclerAdapter!= null){
-            firebaseRecyclerAdapter.startListening();
-        }
+    public void eliminarAmigo(String uid_amigo){
+        Query query = amigos.orderByChild("uid_amigo").equalTo(uid_amigo);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //lo usamos para recorrer en la bd todas los amigos creadas por el user
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    ds.getRef().removeValue();
+                }
+                Toast.makeText(getContext(), "Amigo eliminado.", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    public void eliminarAmigo(){
-
-        amigos.addValueEventListener(new ValueEventListener() {
+    private void mostrarNoHayAgregados(){
+        Query query = amigos.orderByChild("uid_usuario").equalTo(user.getUid()).limitToFirst(1); //Esta consulta tiene el limite que si encuentra solo un resultado se detiene
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
-                for(DataSnapshot snapshot : datasnapshot.getChildren()){
-                    String ma = snapshot.child("uid_amigo").getValue().toString();
-                    System.out.println("UID AMIGO: " +ma);
-                    if(ma.equals(uid)){
-                        String key =snapshot.getKey();
-                        amigos.child(key).removeValue();
-                    }
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){                                                            //Si el resulado de la consulta existe, o sea es verdadero
+                    agregarAmigos.setVisibility(View.GONE);
 
+                }else{
+                    agregarAmigos.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -168,5 +189,13 @@ public class AmigosFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(firebaseRecyclerAdapter!= null){
+            firebaseRecyclerAdapter.startListening();
+        }
     }
 }

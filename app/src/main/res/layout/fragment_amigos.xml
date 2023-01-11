@@ -16,6 +16,21 @@
         android:textSize="24dp"
         android:textAlignment="center"/>
 
+    <TextView
+        android:id="@+id/txtAgregaramigos"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtAmigos"
+        android:text="Aún no tienes amigos agregados."
+        android:textColor="@color/lavender"
+        android:textSize="26dp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:drawableBottom="@drawable/ic_user"
+        android:drawableTint="@color/lavender"
+        android:drawablePadding="25dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAmigo"
         android:layout_width="match_parent"
