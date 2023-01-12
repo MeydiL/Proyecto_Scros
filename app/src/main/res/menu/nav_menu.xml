@@ -27,10 +27,12 @@
                     android:id="@+id/nav_share"
                     android:icon="@drawable/nav_proyectos"
                     android:title="Mis proyectos"/>
+                <!--
                 <item
                     android:id="@+id/nav_about"
                     android:icon="@drawable/nav_colab"
                     android:title="Soy colaborador"/>
+                    -->
             </menu>
 
         </item>
