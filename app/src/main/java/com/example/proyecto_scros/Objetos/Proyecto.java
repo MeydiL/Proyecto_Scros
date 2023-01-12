@@ -2,14 +2,16 @@ package com.example.proyecto_scros.Objetos;
 
 public class Proyecto {
 
-    String id_proyecto, uid_usuario, correo_usuario, fecha_hora_actual, titulo, descripcion, fecha_proyecto, estado;
+    String id_proyecto, uid, uid_usuario, correo_usuario, fecha_hora_actual, titulo, descripcion, fecha_proyecto, estado;
+    Boolean isSelected = false;
 
     public Proyecto() {
 
     }
 
-    public Proyecto(String id_proyecto, String uid_usuario, String correo_usuario, String fecha_hora_actual, String titulo, String descripcion, String fecha_proyecto, String estado) {
+    public Proyecto(String id_proyecto, String uid_usuario, String uid, String correo_usuario, String fecha_hora_actual, String titulo, String descripcion, String fecha_proyecto, String estado, Boolean isSelected) {
         this.id_proyecto = id_proyecto;
+        this.uid = uid;
         this.uid_usuario = uid_usuario;
         this.correo_usuario = correo_usuario;
         this.fecha_hora_actual = fecha_hora_actual;
@@ -17,6 +19,7 @@ public class Proyecto {
         this.descripcion = descripcion;
         this.fecha_proyecto = fecha_proyecto;
         this.estado = estado;
+        this.isSelected = isSelected;
     }
 
     public String getId_proyecto() {
@@ -25,6 +28,14 @@ public class Proyecto {
 
     public void setId_proyecto(String id_proyecto) {
         this.id_proyecto = id_proyecto;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getUid_usuario() {
@@ -81,5 +92,13 @@ public class Proyecto {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Boolean getSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(Boolean selected) {
+        isSelected = selected;
     }
 }

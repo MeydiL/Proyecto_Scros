@@ -2,7 +2,6 @@ package com.example.proyecto_scros.ViewHolder;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,22 +9,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyecto_scros.R;
 
-public class ViewHolder_Proyecto extends RecyclerView.ViewHolder {
+public class ViewHolder_Actividad extends RecyclerView.ViewHolder {
 
     View mView;
 
-    private ViewHolder_Proyecto.ClickListener mClickListener;
+    private ViewHolder_Actividad.ClickListener mClickListener;
 
     public interface ClickListener{
         void onItemClick(View view, int position);
         void onItemLongClick(View view, int position);
     }
 
-    public void setOnClickListener(ViewHolder_Proyecto.ClickListener clickListener){
+    public void setOnClickListener(ViewHolder_Actividad.ClickListener clickListener){
         mClickListener = clickListener;
     }
 
-    public ViewHolder_Proyecto(@NonNull View itemView) {
+    public ViewHolder_Actividad(@NonNull View itemView) {
         super(itemView);
         mView = itemView;
 
@@ -46,48 +45,31 @@ public class ViewHolder_Proyecto extends RecyclerView.ViewHolder {
     }
 
     public void SetearDatos(Context context,
-                            String id_proyecto,
+                            String id_actividad,
                             String uid_usuario,
-                            String correo_usuario,
-                            String fecha_hora_registro,
                             String titulo,
                             String descripcion,
-                            String fecha_proyecto,
-                            String estado,
-                            Boolean isSelected){
+                            String fecha_hora_registro,
+                            String fecha_actividad){
 
         //declarar vistas
-        TextView Id_proyecto_Item, Uid_Usuario_Item, Correo_usuario_Item, Fecha_hora_registro_Item, Titulo_Item,
-                Descripcion_Item, Fecha_Item, Estado_Item, CheckSeleccion;
-
-        Boolean IsSelected;
+        TextView Id_actividad_Item, Uid_Usuario_Item, Fecha_hora_registro_Item, Titulo_Item,
+                Descripcion_Item, Fecha_Item;
 
         //establecer conexcion con item
-        Id_proyecto_Item = mView.findViewById(R.id.Id_proyecto_Item);
+        Id_actividad_Item = mView.findViewById(R.id.Id_actividad_Item);
         Uid_Usuario_Item = mView.findViewById(R.id.Uid_Usuario_Item);
-        Correo_usuario_Item = mView.findViewById(R.id.Correo_usuario_Item);
         Fecha_hora_registro_Item = mView.findViewById(R.id.Fecha_hora_registro_Item);
         Titulo_Item = mView.findViewById(R.id.Titulo_Item);
         Descripcion_Item = mView.findViewById(R.id.Descripcion_Item);
         Fecha_Item = mView.findViewById(R.id.Fecha_Item);
-        Estado_Item = mView.findViewById(R.id.Estado_Item);
-        CheckSeleccion = mView.findViewById(R.id.CheckSeleccion);
-
 
         //seteamos dentro del item
-        Id_proyecto_Item.setText(id_proyecto);
+        Id_actividad_Item.setText(id_actividad);
         Uid_Usuario_Item.setText(uid_usuario);
-        Correo_usuario_Item.setText(correo_usuario);
         Fecha_hora_registro_Item.setText(fecha_hora_registro);
         Titulo_Item.setText(titulo);
         Descripcion_Item.setText(descripcion);
-        Fecha_Item.setText(fecha_proyecto);
-        Estado_Item.setText(estado);
-
-        if(isSelected){
-            CheckSeleccion.setText("Proyecto Activo");
-        }else{
-            CheckSeleccion.setText("Desactivado");
-        }
+        Fecha_Item.setText(fecha_actividad);
     }
 }

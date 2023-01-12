@@ -108,11 +108,11 @@ public class MisProyectosFragment extends Fragment {
     }
 
     private void cargaDatos(){
-        Usuarios.child(user.getUid()).addValueEventListener(new ValueEventListener() {         //Del los datos almacenados en Usuario buscara la uid del usuario actual para obtener sus datos
+        Usuarios.child(user.getUid()).addValueEventListener(new ValueEventListener() {    //Del los datos almacenados en Usuario buscara la uid del usuario actual para obtener sus datos
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {                         //Funcion datasnapshop obtienes los hijo
+            public void onDataChange(@NonNull DataSnapshot snapshot) {                    //Funcion datasnapshop obtienes los hijo
                 //si el usuario existe
-                if(snapshot.exists()){                                                          //SI USAURIO EXISTE EN LA DB
+                if(snapshot.exists()){                                                    //SI USAURIO EXISTE EN LA DB
                     //obtener los datos
                     uid_usuario= snapshot.child("uid").getValue().toString();
                     correo=snapshot.child("correo").getValue().toString();
@@ -141,7 +141,8 @@ public class MisProyectosFragment extends Fragment {
                         proyecto.getTitulo(),
                         proyecto.getDescripcion(),
                         proyecto.getFecha_proyecto(),
-                        proyecto.getEstado()
+                        proyecto.getEstado(),
+                        proyecto.getSelected()
                 );
             }
 
@@ -152,7 +153,14 @@ public class MisProyectosFragment extends Fragment {
                 viewHolder_proyecto.setOnClickListener(new ViewHolder_Proyecto.ClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Toast.makeText(getActivity(), "on item click", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "on item click", Toast.LENGTH_SHORT).show();
+                        String uid_Proyecto = getItem(position).getId_proyecto();
+                        String tituloP = getItem(position).getTitulo();
+                        Intent intent = new Intent(getActivity(), VerProyecto.class);
+                        intent.putExtra("uid_Proyecto", uid_Proyecto);
+                        intent.putExtra("tituloProyecto",tituloP);
+                        intent.putExtra("uid",getItem(position).getUid());
+                        startActivity(intent);
                     }
 
                     @Override

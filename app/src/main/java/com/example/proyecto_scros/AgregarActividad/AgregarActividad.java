@@ -1,6 +1,5 @@
-package com.example.proyecto_scros.AgregarProyecto;
+package com.example.proyecto_scros.AgregarActividad;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -12,10 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.proyecto_scros.Objetos.Proyecto;
+import com.example.proyecto_scros.Objetos.Actividad;
 import com.example.proyecto_scros.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,11 +20,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class Agregar_Proyecto extends AppCompatActivity {
+public class AgregarActividad extends AppCompatActivity {
 
     TextView Uid_Usuario, Correo_usuario, Fecha_hora_actual,Fecha, Estado;
     EditText Titulo, Descripcion;
-    Button Btn_Calendario, Btn_Crear_Proyecto;
+    Button Btn_Calendario, Btn_Crear_Actividad;
 
     int dia, mes, anio;
 
@@ -36,9 +33,9 @@ public class Agregar_Proyecto extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agregar_proyecto);
+        setContentView(R.layout.activity_agregar_actividad);
         /*ActionBar actionBar = getSupportActionBar();//1P creamos la flecha
-        actionBar.setTitle("Crear Proyecto");
+        actionBar.setTitle("Crear Actividad");
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);//1P*/
 
@@ -55,7 +52,7 @@ public class Agregar_Proyecto extends AppCompatActivity {
                 mes = calendario.get(Calendar.MONTH);
                 anio = calendario.get(Calendar.YEAR);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Agregar_Proyecto.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AgregarActividad.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int AnioSelecionado, int MesSeleccionado, int DiaSeleccionado) {
 
@@ -63,7 +60,7 @@ public class Agregar_Proyecto extends AppCompatActivity {
 
                         //Obtener dia
                         if(DiaSeleccionado < 10){
-                            diaFormateado = "0"+String.valueOf(DiaSeleccionado);
+                            diaFormateado = "0"+ DiaSeleccionado;
                         }else{
                             diaFormateado = String.valueOf(DiaSeleccionado);
                         }
@@ -79,15 +76,15 @@ public class Agregar_Proyecto extends AppCompatActivity {
                         Fecha.setText(diaFormateado + "/" + mesFormateado + "/" + AnioSelecionado);
                     }
                 }
-                ,anio, mes, dia);
+                        ,anio, mes, dia);
                 datePickerDialog.show();
             }
         });
 
-        Btn_Crear_Proyecto.setOnClickListener(new View.OnClickListener() {
+        Btn_Crear_Actividad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AgregarBD_Proyecto();
+                AgregarBD_Actividad();
             }
         });
     }
@@ -103,7 +100,7 @@ public class Agregar_Proyecto extends AppCompatActivity {
         Descripcion = findViewById(R.id.Descripcion);
 
         Btn_Calendario = findViewById(R.id.Btn_Calendario);
-        Btn_Crear_Proyecto = findViewById(R.id.Btn_Crear_Proyecto);
+        Btn_Crear_Actividad = findViewById(R.id.Btn_Crear_Actividad);
 
         BD_Firebase = FirebaseDatabase.getInstance().getReference();
     }
@@ -123,50 +120,37 @@ public class Agregar_Proyecto extends AppCompatActivity {
         Fecha_hora_actual.setText(fecha_hora_registro);
     }
 
-    private void AgregarBD_Proyecto(){
-        FirebaseAuth firebaseAuth;
-        firebaseAuth= FirebaseAuth.getInstance();
-
-        FirebaseUser user;
-        user = firebaseAuth.getCurrentUser();
-
+    private void AgregarBD_Actividad(){
         String uid_Usuario = Uid_Usuario.getText().toString();
-        String uid ;//= user.getUid();
         String correo_usuario = Correo_usuario.getText().toString();
         String fecha_hora_actual = Fecha_hora_actual.getText().toString();
         String titulo = Titulo.getText().toString();
         String descripcion = Descripcion.getText().toString();
         String fecha = Fecha.getText().toString();
         String estado = Estado.getText().toString();
-        Boolean isSelected = false;
+        String uid_Proyecto = getIntent().getStringExtra("uid_Proyecto");
 
         if(!uid_Usuario.equals("") || !correo_usuario.equals("") || fecha_hora_actual.equals("") ||
-        titulo.equals("") || descripcion.equals("") || fecha.equals("") || estado.equals("")){
+                titulo.equals("") || descripcion.equals("") || fecha.equals("") || estado.equals("")){
 
-
-            String Proyecto_usuario = BD_Firebase.push().getKey();
-            //establecer name db
-            uid = Proyecto_usuario;
-
-            String Nombre_BD = "Proyectos";
-
-            Proyecto proyecto = new Proyecto(
+            Actividad actividad = new Actividad(
                     correo_usuario+"/"+fecha_hora_actual,
                     uid_Usuario,
-                    uid,
-                    correo_usuario,
-                    fecha_hora_actual,
+                    uid_Proyecto,
                     titulo,
                     descripcion,
+                    fecha_hora_actual,
                     fecha,
-                    estado,
-                    isSelected
+                    estado
             );
 
+            String Actividad_usuario = BD_Firebase.push().getKey();
+            //establecer name db
+            String Nombre_BD = "Actividades";
 
-            BD_Firebase.child(Nombre_BD).child(Proyecto_usuario).setValue(proyecto);
+            BD_Firebase.child(Nombre_BD).child(Actividad_usuario).setValue(actividad);
 
-            Toast.makeText(this, "El proyecto fue creado.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "La actividad fue creado.", Toast.LENGTH_SHORT).show();
             onBackPressed();
         }else{
             Toast.makeText(this, "Llenar todos los campos.", Toast.LENGTH_SHORT).show();
@@ -178,25 +162,5 @@ public class Agregar_Proyecto extends AppCompatActivity {
         onBackPressed();
         return super.onSupportNavigateUp();
     }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

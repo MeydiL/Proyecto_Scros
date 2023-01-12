@@ -14,32 +14,22 @@
         <androidx.appcompat.widget.SearchView
             android:id="@+id/Sj"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/Btn_Crear_Proyecto"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/lavender"
+            android:text="Crear proyecto"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleviewProyectos"
             android:layout_width="match_parent"
-            android:layout_height="550dp"
-            tools:listitem="@layout/item_proyecto"/>
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_proyecto" />
 
-        <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-
-            <Button
-                android:id="@+id/Btn_Crear_Proyecto"
-                android:backgroundTint="@color/lavender"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Crear proyecto"
-                android:textSize="20sp" />
-
-
-
-        </LinearLayout>
     </LinearLayout>
-
 </RelativeLayout>

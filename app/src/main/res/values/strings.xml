@@ -21,11 +21,14 @@
     <string name="Descripcion">Descripcion</string>
     <string name="Btn_Calendario">Calendario</string>
     <string name="Btn_Crear_Proyecto">Crear proyecto</string>
+    <string name="Btn_Agregar_Actividad">Agregar actividad</string>
+    <string name="Btn_Activar_Proyecto">Activar proyecto</string>
     <string name="Fecha">00/00/0000</string>
     <string name="Estado">No finalizado</string>
 
     <!-- TODO: Item Proyecto -->
     <string name="Id_proyecto_Item">Id proyecto</string>
+    <string name="CheckSeleccion">No seleccionado</string>
     <string name="Uid_Usuario_Item">Uid del usuario</string>
     <string name="Correo_usuario_Item">Correo del usuario</string>
     <string name="Fecha_hora_registro_Item">Fecha y hora registro</string>
@@ -33,11 +36,11 @@
     <string name="Descripcion_Item">Descripcion</string>
     <string name="Fecha_Item">00/00/0000</string>
     <string name="Estado_Item">No finalizado</string>
+    <string name="Sin_Actividades">Sin actividades</string>
 
     <!-- TODO: Proyectos Creados-->
     <string name="txt_NombreProyectoCreado">Titulo del Proyecto</string>
     <string name="txt_DescripcionroyectoCreado">Descripción del Proyecto</string>
-
 
 
     <!-- Strings used for fragments for navigation -->
@@ -48,6 +51,7 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_agregar_actividad">AgregarActividad</string>
 
 
 </resources>
