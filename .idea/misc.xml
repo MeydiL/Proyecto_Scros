@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/erick/OneDrive/Escritorio/Erick/Archivos Universidad/VII Semestre/Seminario de Desarrollo Tecnologíco/Proyecto_SCROS/app/src/main/res/layout/activity_agregar_actividad.xml" value="0.1859375" />
+        <entry key="..\:/Users/erick/OneDrive/Escritorio/Erick/Archivos Universidad/VII Semestre/Seminario de Desarrollo Tecnologíco/Proyecto_SCROS/app/src/main/res/layout/activity_agregar_amigo.xml" value="0.2" />
         <entry key="..\:/Users/erick/OneDrive/Escritorio/Erick/Archivos Universidad/VII Semestre/Seminario de Desarrollo Tecnologíco/Proyecto_SCROS/app/src/main/res/layout/activity_agregar_proyecto.xml" value="0.22" />
         <entry key="..\:/Users/erick/OneDrive/Escritorio/Erick/Archivos Universidad/VII Semestre/Seminario de Desarrollo Tecnologíco/Proyecto_SCROS/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/erick/OneDrive/Escritorio/Erick/Archivos Universidad/VII Semestre/Seminario de Desarrollo Tecnologíco/Proyecto_SCROS/app/src/main/res/layout/activity_ver_proyecto.xml" value="0.22" />
@@ -17,13 +18,12 @@
         <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/drawable-v24/ic_data.xml" value="0.13" />
         <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/drawable/contenedor_blanco.xml" value="0.13" />
         <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/layout/activity_agregar_amigo.xml" value="0.25" />
-        <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/layout/activity_login.xml" value="0.209375" />
         <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/layout/activity_main.xml" value="0.209375" />
         <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/layout/activity_registro.xml" value="0.2" />
         <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/layout/fragment_about.xml" value="0.209375" />
         <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/layout/fragment_amigos.xml" value="0.25" />
         <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/layout/fragment_cuenta.xml" value="0.25" />
-        <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/layout/fragment_home.xml" value="0.15760869565217392" />
         <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/layout/item_addamigos.xml" value="0.15760869565217392" />
         <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/layout/nav_header.xml" value="0.209375" />
         <entry key="..\:/Users/luisl/OneDrive-Meydi/OneDrive - Universidad Juarez Autonoma de Tabasco/Documents/MEYDI LOPEZ LOPEZ/7mo Semestre/Seminario I/Proyecto_Scros/app/src/main/res/menu/nav_menu.xml" value="0.33" />

@@ -41,12 +41,15 @@ public class HomeFragment extends Fragment {
 
     int numDia = 0;
     Calendar calendar = Calendar.getInstance();
+    String mesF;
     int day = calendar.get(Calendar.DAY_OF_WEEK);
     int dia = calendar.get(Calendar.DAY_OF_MONTH);
     int mes = calendar.get(Calendar.MONTH);
     int anio = calendar.get(Calendar.YEAR);
 
     int contDias =0;
+    String fechaActual;
+    String proyectoActivoUID;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference BASE_DE_DATOS;
@@ -66,12 +69,13 @@ public class HomeFragment extends Fragment {
         View v= inflater.inflate(R.layout.fragment_home, container, false);
 
         InicializarVariables(v);
-        RevisarProyectoActivo();
+
 
         buttonAnterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MoverDia(-1);
+                PRU(proyectoActivoUID);
             }
         });
 
@@ -79,13 +83,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 MoverDia(1);
+                PRU(proyectoActivoUID);
+             //   ListarActividadesProyecto(proyectoActivoUID);
             }
         });
         return v;
     }
 
     private void MoverDia(int mov) {
-        String fechaActual;
         numDia += mov;//0
         contDias += mov;//4
 
@@ -101,7 +106,12 @@ public class HomeFragment extends Fragment {
             CambiarDia(dias[numDia]);
         }
 
-        fechaActual = (dia + contDias) + "-" + mes +"-"+anio;
+        if(mes < 10){
+            mesF = "0"+(mes+1);
+        }else{
+            mesF = String.valueOf(mes+1);
+        }
+        fechaActual = (dia + contDias) + "/" + mesF +"/"+anio;
         Toast.makeText(getActivity(), fechaActual + "", Toast.LENGTH_SHORT).show();
         //Toast.makeText(getActivity(), numDia + "", Toast.LENGTH_SHORT).show();
     }
@@ -118,8 +128,9 @@ public class HomeFragment extends Fragment {
                     if(ds.child("selected").getValue().equals(true)){
                         //Toast.makeText(getActivity(), ds.child("titulo").getValue().toString(), Toast.LENGTH_SHORT).show();
                         tituloProyecto.setText(ds.child("titulo").getValue().toString());
-                        //CambiarDia(dias[numDia]);
-                        ListarActividadesProyecto(ds.child("uid").getValue().toString());
+                        proyectoActivoUID = ds.child("uid").getValue().toString();
+                        PRU(ds.child("uid").getValue().toString());
+                        //    ListarActividadesProyecto(ds.child("uid").getValue().toString());
                         //Toast.makeText(getActivity(),ds.child("uid").getValue().toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -137,13 +148,79 @@ public class HomeFragment extends Fragment {
     }
 
     private void ListarActividadesProyecto(String uid_proyecto){
+
         Query query = BASE_DE_DATOSLAP.orderByChild("uid_proyecto").equalTo(uid_proyecto);
-        //Toast.makeText(getActivity(), uid_proyecto, Toast.LENGTH_SHORT).show();
+        //Query query = BASE_DE_DATOSLAP.child("uid_proyecto").child(uid_proyecto).orderByChild("fecha").equalTo(fechaActual);
         options = new FirebaseRecyclerOptions.Builder<Actividad>().setQuery(query, Actividad.class).build();
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Actividad, ViewHolder_Actividad>(options) {
             @Override
             protected void onBindViewHolder(@NonNull ViewHolder_Actividad viewHolder_actividad, int position, @NonNull Actividad actividad) {
+
+               // Toast.makeText(getActivity(), actividad.getFecha()+ "-" + fechaActual, Toast.LENGTH_SHORT).show();
+                if(actividad.getFecha().equals(fechaActual)){
+                   // Toast.makeText(getActivity(), "ENTRO", Toast.LENGTH_SHORT).show();
+                    viewHolder_actividad.SetearDatos(
+                            getActivity(),
+                            actividad.getId_actividad(),
+                            actividad.getUid_usuario(),
+                            actividad.getTitulo(),
+                            actividad.getDescripcion(),
+                            actividad.getFecha_actividad(),
+                            actividad.getFecha()
+                    );
+                }else{
+
+                    //Toast.makeText(getActivity(), "AJUERA", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @NonNull
+            @Override
+            public ViewHolder_Actividad onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_actividad, parent, false);
+                ViewHolder_Actividad viewHolder_actividad = new ViewHolder_Actividad(view);
+                viewHolder_actividad.setOnClickListener(new ViewHolder_Actividad.ClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+
+                    }
+                });
+                return viewHolder_actividad;
+            }
+        };
+
+        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        linearLayoutManager.setReverseLayout(false);
+        // setReverseLayout() - TRUE - que se enliste desde el ultimo al primero/FALSE del primero al ultimo
+        linearLayoutManager.setStackFromEnd(false);
+        // setStackFromEnd()  - TRUE- se atasca en el final / FALSE - se atasca al principio
+
+
+        firebaseRecyclerAdapter.startListening();
+        recyclerviewActividades.setAdapter(firebaseRecyclerAdapter);
+        recyclerviewActividades.setLayoutManager(linearLayoutManager);
+
+    }
+
+    private void PRU(String uid_proyecto){
+
+        Query query = BASE_DE_DATOSLAP.orderByChild("fecha").equalTo(fechaActual);
+        //Query query = BASE_DE_DATOSLAP.child("uid_proyecto").child(uid_proyecto).orderByChild("fecha").equalTo(fechaActual);
+        options = new FirebaseRecyclerOptions.Builder<Actividad>().setQuery(query, Actividad.class).build();
+
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Actividad, ViewHolder_Actividad>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull ViewHolder_Actividad viewHolder_actividad, int position, @NonNull Actividad actividad) {
+
+                // Toast.makeText(getActivity(), actividad.getFecha()+ "-" + fechaActual, Toast.LENGTH_SHORT).show();
+                //if(actividad.getFecha().equals(fechaActual)){
+                // Toast.makeText(getActivity(), "ENTRO", Toast.LENGTH_SHORT).show();
                 viewHolder_actividad.SetearDatos(
                         getActivity(),
                         actividad.getId_actividad(),
@@ -153,7 +230,10 @@ public class HomeFragment extends Fragment {
                         actividad.getFecha_actividad(),
                         actividad.getFecha()
                 );
-                //System.out.println("d");//
+                //}else{
+                //   viewHolder_actividad.equals(false);
+                //Toast.makeText(getActivity(), "AJUERA", Toast.LENGTH_SHORT).show();
+                //}
             }
 
             @NonNull
@@ -212,10 +292,10 @@ public class HomeFragment extends Fragment {
         dias[7] = "Sabado";
 
         ObtenerFechaActual();
+        RevisarProyectoActivo();
     }
 
     private void ObtenerFechaActual() {
-        String mesF;
 
         int day = calendar.get(Calendar.DAY_OF_WEEK);
         dia = calendar.get(Calendar.DAY_OF_MONTH);
@@ -228,6 +308,8 @@ public class HomeFragment extends Fragment {
         }else{
             mesF = String.valueOf(mes+1);
         }
+
+        fechaActual = dia + "/" + mesF +"/"+anio;
 
         switch (day) {
             case Calendar.SUNDAY:
@@ -259,6 +341,7 @@ public class HomeFragment extends Fragment {
                 CambiarDia(dias[numDia]);
                 break;
         }
+        Toast.makeText(getActivity(), fechaActual + "", Toast.LENGTH_SHORT).show();
 
     }
 

@@ -72,4 +72,5 @@ public class ViewHolder_Actividad extends RecyclerView.ViewHolder {
         Descripcion_Item.setText(descripcion);
         Fecha_Item.setText(fecha_actividad);
     }
+
 }
